@@ -29,9 +29,13 @@ Despite making improvements over the last 10 years, there are a number of issues
  * A web server with Perl 5.x, with the CGI and LWP (libwww-perl) modules installed, and support for CGI scripts.
  * A web browser with javascript support. It should works on all mordern smartphone (iOS, Android) and desktop (Chrome, Edge, Firefox) browsers
 
+This code has only been tested under Linux and Apache, but should theoretically work under Windows.
+
 ## Latest version
 
  * Download the latest version from the Releases page
+ * Decompress the archive
+ * Installation instructions can be found in the `doc` folder
 
 This code is considered mature. As such, releases tend to only be when the maintainers of Slashdot or Soylent News change something to break the code.
 
