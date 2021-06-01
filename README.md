@@ -31,11 +31,11 @@ Despite making improvements over the last 10 years, there are a number of issues
 
 This code has only been tested under Linux and Apache, but should theoretically work under Windows.
 
-## Latest version
+## Installation instructions
 
- * Download the latest version from the Releases page
- * Decompress the archive
- * Installation instructions can be found in the `doc` folder
+ * Download the latest version from the Releases page.
+ * Decompress the archive using `unzip`, `gunzip` or your favourite decompression software.
+ * Read the installation instructions located in the `doc` folder.
 
 This code is considered mature. As such, releases tend to only be when the maintainers of Slashdot or Soylent News change something to break the code.
 
