@@ -10,7 +10,7 @@ Despite making improvements over the last 10 years, there are a number of issues
  * A lot of screen real-estate is wasted on empty space.
  * Comment threads are impossible to read due to large numbers of redundant "comment hidden" messages.
  * It's not easy to quickly jump into interesting threads of comments that are below your current threshold.
- * Data usage is very high. A typical front-page on Slashdot mobile is ~1.6 MB whereas with Avantslash it is ~40 kB. This makes a significant difference when downloading over slow data connections (eg. 3G). 
+ * Page sizes are very large. A typical front-page on Slashdot mobile is ~1.6 MB which can be slow to download with poor data connections. In comparison, a typical front page with Avantslash is ~40 kB. 
 
 ## Key features
 
@@ -21,7 +21,7 @@ Despite making improvements over the last 10 years, there are a number of issues
 * Support for skinning (desktop or mobile view, font size, dark mode, button sizes, etc).
 * Configurable settings within the browser, set on a per browser basis (ideal for having different configurations for different devices).
 * Replying to comments via the regular Slashdot (and Soylent News) website in case you don't want to open the laptop.
-* External links to Youtube, Wikipedia, and obligatory xkcd automatically redirected to mobile versions.
+* External links to [Youtube](https://www.youtube.com), [Wikipedia](https://en.wikipedia.com), and obligatory [xkcd](https://xkcd.com/) are automatically redirected to mobile versions.
 * and more...
 
 ## System requirements
@@ -33,7 +33,7 @@ This code has only been tested under Linux and Apache, but should theoretically 
 
 ## Installation instructions
 
- * Download the latest version from the Releases page.
+ * Download the latest version from the [Releases](https://github.com/mrsilver76/avantslash/releases) page.
  * Decompress the archive using `unzip`, `gunzip` or your favourite decompression software.
  * Read the installation instructions located in the `doc` folder.
 
@@ -53,4 +53,4 @@ SoylentNews does not use the D2 system, which Avantslash would use for dynamic m
 
 Avantslash was developed by Richard Lawrence and Han-Kwang Nienhuys. We are not affiliated with or endorsed by the corporate overlords of slashdot.org.
 
-Avantslash is a portmanteau, a made-up word coined from a combination of [AvantGo](https://en.wikipedia.org/wiki/AvantGo) (a web-browser that could sync web page content to a device for offline reading circa 1997) and Slashdot. 
+Avantslash is a portmanteau, a made-up word coined from a combination of [AvantGo](https://en.wikipedia.org/wiki/AvantGo) (a web-browser that could sync web page content to a device for offline reading circa 1997) and Slashdot. The first versions of Avantslash were designed to allow you to download all stories on the front page of Slashdot along with comments for offline reading on a [Palm Vx](https://en.wikipedia.org/wiki/Palm_Vx) running AvantGo. 
