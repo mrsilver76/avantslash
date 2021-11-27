@@ -12,6 +12,12 @@ Despite making improvements over the last 10 years, there are a number of issues
  * It's not easy to quickly jump into interesting threads of comments that are below your current threshold.
  * Page sizes are very large. A typical front-page on Slashdot mobile is ~1.6 MB which can be slow to download with poor data connections. In comparison, a typical front page with Avantslash is ~40 kB. 
 
+## Comparison screen shots
+
+Avantslash 4.16 rendered using the Safari browser on an iPhone 13 Pro (running iOS 15.1.1)
+
+![screenshot](https://github.com/mrsilver76/avantslash/blob/main/comparison.png?raw=true)
+
 ## Key features
 
 * Read Slashdot and SoylentNews front pages, articles, threads, and polls.
