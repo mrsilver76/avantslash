@@ -1,0 +1,4 @@
+/* !ABOUT: Disable scroll buttons !MOD:3 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+   
+div.scroll { display: none; }

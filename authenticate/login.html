@@ -1,0 +1,33 @@
+<html>
+<head><title>Avantslash login</title>
+<script type="text/javascript">
+function login() {
+ var exdate=new Date();
+ exdate.setDate(exdate.getDate()+100);
+ var passcode = document.getElementById("password").value;
+ document.cookie = "authcode=" + escape(passcode)
+    + "; expires="+exdate.toGMTString();
+ var newurl = document.location.href.replace('login.html', 'avantify.cgi');
+ document.location.href = newurl;
+ return false;
+ }
+function logout() {
+ document.cookie = "authcode=zzz";
+ return false;
+}
+</script>
+</head>
+
+
+<body>
+<h2>AvantSlash login</h2>
+<form onsubmit="return login();">
+Passcode: <input type="text" id="password">
+<button onclick="return login();">Login</button>
+</form>
+
+<br>
+
+<a href="#" onclick="return logout();" id="lo">Logout</a>
+</body>
+</html>

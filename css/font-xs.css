@@ -1,0 +1,5 @@
+/* !ABOUT: Extra-small font size !MOD:2 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+body { font-size: 0.6875em; }
+
+

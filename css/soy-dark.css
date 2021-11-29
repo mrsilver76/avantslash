@@ -1,0 +1,12 @@
+/* !ABOUT: Soylent Dark &amp; warm for night-time reading. !MOD:1 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+@import "dark.css"
+span.logo { background: url('logo40Sby.png'); }
+
+a { color:#b62; text-decoration: none; }
+a:visited, a:hover {color: #862;  }
+div.hiddenstory h2, div.hiddenstory h2 a { background: #533; }
+div.abbr { color: #aaa078; border-top: 0px solid #533; }
+div.abbr span.title { color: #aaa078; background: #533; }
+
+

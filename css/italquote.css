@@ -1,0 +1,5 @@
+/* !ABOUT: blockquotes in italic. !MOD:3*/
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+body blockquote {
+  font-style: italic; margin-left: 0em; padding-left: 0em; border: none;
+}

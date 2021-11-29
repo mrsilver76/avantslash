@@ -1,0 +1,131 @@
+/* base.icss: to be @import'ed from style sheets  -*- */
+
+
+
+/* generic style elements */
+body {
+ background: #fff; color: #000; max-width:60em;
+  font-family: Arial,Helvetica;
+}
+
+@media screen and (min-width: 63em) {
+    body {
+	margin: 0.5em auto 0.5em auto;
+    }
+}
+
+  
+div.error {
+ background: #F3E88E;
+ font-size: 0.8em;
+ padding: 0.3em; margin: 1em 0em 1em -0.3em;
+}
+span.error {
+ background: #F3E88E;
+ color: #a00;
+}
+
+/* headings, including article titles (h2) and comment titles (h3) */
+h2 { font-size: 1.2em; padding: 0.2em 0em 0.2em 0em; margin:0em; }
+h3 { font-size: 1.0em; padding: 0.2em 0em 0.2em 0em; margin:0em; }
+h4 { font-size: 1.0em; padding: 0.2em 0em 0.0em 0em; margin:0em; }
+a { color:#066; text-decoration: none; }
+a:visited, a:hover {color: #255;  }
+p { margin: 0.2em 0em 0.8em 0em; }
+div.storylink { float:right; }
+table a.del { color: #a80; }
+
+@media handheld {
+  /* on small screens: don't waste too much space on margins. */
+       body { padding:2px 4px 0px 4px; margin: 0px; }
+  }
+dl dt { font-weight: bold; }
+dl dd { margin-left: 1.5em; }
+ol, ul { margin: 0.3em 0em 0.3em 0em; padding-left: 0em; }
+ol li, ul li { margin-left: 1.5em; }
+small { font-size: 0.8em; }
+blockquote { color: #666; margin-left: 1em; }
+
+/* page header with logo */
+div.header { font-size: 0.85em; margin-bottom: 1em; }
+  div.logobar { background: #004242; height:40px; margin-left:-4px; margin-bottom: 0.5em; color: #fff; }
+span.logo {
+ display: block; background: url('logo40w.png'); height:40px; width:200px;
+  font-size:24px;
+}
+div.logobar a, div.logobar a:hover, div.logobar a:visited {
+ text-decoration: none;
+}
+span.logo:hover { outline:1px solid #08f; }
+span.logo span { display: none; }
+
+img { border: none; display: block; }
+
+/* list of stories or list of comments */
+div.item {
+    margin-bottom: 0px;
+    padding: 0.5ex 0em 0.5ex 0em;
+}
+div.subtitle, div.footer { color: #000000; font-size: 0.857em; }
+div.subtitle div, div.footer div { padding-bottom: 0.2em }
+div.toppad { margin-top: 1em; } /* filler */
+
+/* Hidden story */
+div.hiddenstory { color: #888; }
+
+/* abbreviated comments */
+div.abbr {
+ color: #888;
+  text-indent:0px;
+  border-top: 0px solid #8ba;
+  margin-left: 8px; 
+  padding-left:4px;
+}
+
+div.abbr span.title { font-weight: bold; }
+div.exp-comment { display: none; }
+
+/* table */
+table.stats th { text-align: left; }
+table.stats th, table td { padding-right: 1em; }
+table.bm td { padding-right: 0.5em; vertical-align:top; }
+
+/* form */
+form { display: inline; }
+
+/* search */
+div.searchheader {
+  font-weight: bold;
+  font-size:1.1em;
+}
+
+/* scroll helper */
+div.scroll {
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   opacity: 0.5;
+}
+
+div.scroll a {
+   background: #444;
+   color: #fff;
+   padding: 0.1em 0em 0.1em 0em;
+   font-weight: bold;
+   font-size: 2em;
+}
+
+
+span.pollbar {
+  width: 8em;
+  display:inline-block;
+  overflow: visible;
+  font-size: 0.8em;
+}
+
+span.pollbar span.bar {
+  display:inline-block;
+  background: #888; 
+  width: 1em;
+  height: 1em;
+}

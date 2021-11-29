@@ -1,0 +1,569 @@
+v4.15 (2017-07-17)
+* slashdot.org via https; remove legacy beta-avoidance.
+  (The author's IP address was banned temporarily, despite very
+   light usage in the past weeks. Maybe because it was using
+   obsolete http URLs. )
+
+v4.14 (2016-03-16)
+* Added bookmark function for threads. Useful if you want to
+  revisit a thread to see further replies.
+* SD: tweak handling of story URLs
+* SD: also show transcripts of video interviews
+* SD: repair dynamic comment expansion (slashdot.org uses https since
+  14 March 2016)
+
+v4.13 (2015-11-14)
+* Polls link to voting booth; show poll results graphically
+* SD: Handle story URL (as now appearing in slashdot story
+
+v4.12 (2015-08-05)
+* Avantslash is now suitable for serving over https rather than
+http. Contributed by Stefan Zwanenburg.
+* Change error message (in case of zero comments).
+* Use left margin if mobile layout is viewed on a wide screen.
+* SN: some code cleanup.
+* SN: suppress story blurb in thread view.
+* SN: remove "Original submission" link
+* SD: also show video stories on main page (but not 'video bytes').
+* SD: comments page: restore disappeared 'posted by' line.
+* SD: no more 404 error on story pages when site is in read-only
+  maintenance mode.
+* SD: use correct comment threshold in thread mode when
+  requested from expanded comment or 'read full comment' link.
+* SD: correctly repoint urls to slashdot user page
+  (i.e. /~username).
+* SD: fix disappeared posted/department due to slashdot template change.
+
+v4.11 (2015-07-01)
+* State number of comments for stories on main page.
+* Improved scroll buttons (no history pollution).
+* Removed legacy WAP/WML support.
+* Soylentnews: parsing: handle long stories ('below the fold'), no
+  more "Related stories" title; suppress comment signatures; rewrite
+  URLs to local avantslash URLs.
+* Soylentnews: added dynamic comment expansion.
+* Soylentnews: search sorts by date, not by relevancy
+* Soylentnews: connect by https;
+* Slashdot: handle main page html change (posted by...)
+
+v4.10 (2015-06-21)
+* Slashdot front-page html change ('read more' was gone).
+  No more polls on the front page, unfortunately.
+* Soylentnews story page: fix broken comment subject/score parsing.
+* Output charset: utf-8 (especially for Soylentnews)
+* Added scroll to top/bottom buttons
+
+v4.9 (2nd/9th March 2014)
+* Added soylentnews.org support (see readme)
+* Added auto-upgrade feature (strictly opt-in).
+* demo less restrictive on referrer
+* allow <em> in comments
+* (9th March): bugfix in autoupgrade script (for tar version 1.23)
+
+v4.8 (7th February 2014)
+* Better "slashdot beta" avoidance by sending cookie "betagroup=-1":
+  no more 'reload beta' on comment pages.
+* Tweaked css styles (invert, dark, serif).
+* added index.cgi redirect (and updated auth/.htaccess example)
+* updated readme.txt; added diagnostic.cgi to diagnose installation
+  issues.
+* Tweaked threshold handling in [thread] mode
+
+v4.7 (11th January 2014)
+* Deal with (randomized) 'slashdot beta' layout for main page
+* Add 'force_reload' link to failed page requests. (Note: beta layout
+  not parsed for comments pages)
+* Deal with failed message expand.
+* Linking to avantslash.org rather than fourteenminutes.com.
+* updated readme file.
+
+v4.6 (8th May 2013)
+* Deal with changed date format
+
+v4.5 (29th March 2013)
+* Update for new slashdot HTML (parse title in front page)
+* Add ?rss=1 option to get RSS feed. Experimental feature.
+* Prevent userids and dates from being interpreted as clickable phone
+  numbers.
+* format bullet lists in comments.
+
+v4.4 (15th November 2011)
+* Added option to view extra thread and reply links for each comment.
+
+v4.3 (11th July 2011)
+* Bugfix: CSS cookie did not work in Perl version >= 5.10.1.
+* Changed icons (again).
+* Added 'Apply and return' button on preferences page.
+* Changed title 'Slashdot' to 'Avantslash'
+
+v4.2 (13th June)
+* Error messages from slashdot such as '503 service unavailable' are
+  shown to the user. (Slashdot is not working today).
+* Bugfix time-zone translation.
+* Move avantify.config to 'config.dist'. Local settings go to
+  'config.local'.
+* Add time zone translation and date formatting; config variables
+  TIMEZONE and TIME_FMT.  
+* New artwork (logo and icons); adapted css accordingly. 
+* Removed serif.css again, makes no sense.
+* Changed update checker to use fourteenminutes.com/.../checkupdate.cgi.
+* Put notice about usage tracking in readme and config example.
+* Split credits page into separate prefs page. I got tired of
+  scrolling down while switching to night mode.
+* Added example htaccess authentication under authenticate/
+* Add noindex robot tag if user agent looks like a bot.
+* Added 'dark' color scheme for reading in the dark.
+* Demo mode: move default demo settings; hide cache stats from user.
+* Now also redirect links to individual comments ('see this earlier
+  post').
+* [Thread] links have lower threshold.
+* Change cache control for css to prevent checking css time stamp.
+* Introduced 'demo_mode'. Limited functionality; safe for public
+  use. Differences with standard mode: no search, only show older
+  issues, maximum queries per IP address, referrer checking, robots
+  noindex, limited number of comments/stories, long cache lifetime.
+* More tweaking algorithm for dispaying [Thread] links.
+* [Thread] links at more relevant locations
+* Bugfix: display correct 'posted' in non-thread mode.
+* Added timeout mechanism. Current values 30 seconds for slashdot.org
+  and 8 seconds for 'fourteenminutes.com'. This is because AvantSlash
+  sometimes stalls while waiting for Fourteenminutes; also we don't
+  want to make AvantSlash unusable when Fourteenminutes happens to be
+  offline.
+* Now the URL is stored in the cached file and $fetch_info{url} is
+  also defined when the URL was taken from the cache. Comes in handy
+  when debugging timeouts.
+* Added 'serif' css option.
+* Bugfix in [thread] mode: properly recognize start of comments; not
+  doing so sometimes causes a server error (html output without
+  content-type).
+* Bugfix in comment debug mode, for same reason as above.
+* Change algorithm for [thread] (every comment that does not start
+  with "Re:"). This is more reliable and compatible with compressed
+  top-level comments. 
+* Add 'read the rest of this comment' using the [thread]
+  mechanism. However, Slashdot handles this in a mysterious way.
+* Move CSS to css/ subdirectory. Add 'css_dist.txt' file containing
+  the CSS files for this release, to avoid cluttering the skin
+  selection list with old CSS versions after an update. User-specific
+  CSS files can be defined in css_local.txt, which should NOT be
+  included with the distribution.
+* Add [thread] links to top-level comments; this will show comments
+  that are hidden in the regular story pages if there are more than 50
+  comments in the story.
+* Change bigfont, smallfont to font-l and font-b; changed default font
+  sizes.
+* add 'debugging.txt' with some undocumented options.
+* Experimenting with browser sniffing; absolute path in
+  apple-touch-icon for Android
+* CSS: remove redundancy; make 'hugefont' a bit larger
+* CSS option 'bigbutton' (doesn't seem to help on Android 1.6, though)
+
+v4.1 (10th April 2011)
+* URL replacement scheme updated to now support redirecting wikipedia,
+  xkcd and youtube references to the mobile version.
+* Many config options are now moved away from the config file and onto the
+  "About/Preferences" page. This allows different reading options on a
+  per-device basis.
+* Added an option for hidden main pages to be shown in a different colour
+  scheme.
+* If there is a parsing problem, you can now force AvantSlash to check
+  for an update.
+* Slashdot-truncated comments for threshold <= 1 now get an [expand] link.
+* Viewport settings removed as now can be detected automatically.
+* Added an option so that comments can be displayed indented to allow you
+  to easily follow who is replying to what post.
+* Number of bug fixes relating to expanding messages, debugging mode,
+  update checking and blockquotes in postings not being closed.
+* Updated credits to include cache statistics.
+* Book reviews are now correctly parsed.
+* Favicon and iOS icons added.
+
+
+v4.0 (6th March 2011)
+* The location of avantify.config is taken from the current working
+  directory, so that (the majority of) users will not need to edit the
+  script to make it work.
+* Some leftover html tags (e.g. </a> in the score) are now removed.
+* Added more non-printing whitespace in the html output to make debugging
+  easier.
+* Improved the debugging output: better removal of attributes inside html
+  tags.
+* Now supports expanding truncated comments for javascript-capable browsers
+  and optionally abbreviating low-score comments.
+* Now downloads the regular dynamic slashdot pages, instead of trying to
+  deal with the buggy and unstable legacy versions.
+* Some code cleanup: parsing of front page in separate function; pruned
+  apparently obsolete code, moved other stuff in separate subroutines.
+* Add links to previous issues, up to 5 days ago, on front page.
+* Improved debugging messages.
+* New layout templating system allowing for on-the-fly changes to the
+  stylesheets depending on which looks better on various devices.
+
+v3.19 (30th November 2010) by Han-Kwang Nienhuys
+* Correct the issue with comment thresholds not working as they should.
+* Updated the regexp to extract the author again, and the control flow to
+  start comment output.
+* Changed the DUMP_REFORMATTED_HTML option: 2=as it used to be;
+  1=output html as it is being parsed.
+* Remove onclick=... from the tags so that it's easier to eyeball the
+  raw html code.
+* Updated copyright so that it is correct each year.
+* Escaped quotes (\") in regexps so that Emacs' syntax highlighting
+  doesn't get confused.
+* Fixed the issue with comments being truncated which turned out that
+  they were hidden ones which were dynamically downloaded when clicked.
+
+v3.18 (14th October 2010)
+* Fixed an issue where a change to the way comment titles were presented
+  mean't that AvantSlash didn't display any comments.
+* Updated the copyrights.
+
+v3.17 (19th September 2009)
+* Fixed the presentation error which meant that two headers were
+  displayed when the comments could not be parsed.
+* Removed the message count when the error page is presented.
+* Updated the code to cope with the changes to the Slashdot HTML for
+  the comments page (thanks to Han-Kwang Nienhuys for the details).
+* Fixed an issue where some comments weren't being shown because the
+  quoted text was being formatted with CSS rather than HTML.
+* Added an option to change the postings of people who insist on prefixing
+  comments they are replying to with > ("old-style") into blockquotes.
+* Very long URL's in comments which cause scrolling problems on mobile
+  phones are now automatically shortened.
+
+v3.16 (18th July 2009)
+* Added a SET_VIEWPORT option so that people using a BlackBerry or an
+  iPhone can read the content in landscape mode (thanks to Keith Schawel
+  for the details)
+* Updated the code so that the "idle" section can now be read.
+
+v3.15 (12 June 2009)
+* Updated the code to cope with the changes to the Slashdot HTML for
+  the comments page.
+* HTML tags are no longer displayed in the page title.
+
+v3.14 (26 April 2009)
+* Updated the code to cope with the changes to the Slashdot HTML for
+  the main page.
+* Updated the copyrights.
+* Updated the documentation to indicate support for the iPhone.
+
+v3.13 (4th April 2008)
+* Fixed bug which meant that users were directed to a non-working Google
+  page when viewing on a basic WML only enabled browser.
+* Fixed bug which meant that browsers which report they support
+  "application/xhtml" but not "text/html" are wrongly presented with the
+  WML version of Slashdot.
+* Updated the code to support the HTML changes made by Slashdot to the
+  comments page.
+
+v3.12 (28th October 2007)
+* Updated the code to support the HTML changes made by Slashdot to the
+  comments page.
+
+v3.11 (9th October 2007)
+* Added ability to override the default threshold to read more or less.
+  There is an option in the configuration file to turn it on or off.
+* Fixed a number of bugs relating to the Google WML proxy which prevented
+  the script from correctly recognising it, sending the correct page to
+  convert and redirecting to it when viewing (thanks to Han-Kwang Nienhuys
+  for all the fixes).
+* Fixed a bug which meant that some of the smaller stories were not being
+  displayed on the mainpage.
+
+v3.10 (10th February 2007)
+* Updated code to work around Slashdot's bizzare insistence that 
+  requests to the main page have a referer of slashdot.org.
+* Updated the issue functionality to work with Slashdot's recent HTML 
+  change which was missed in v3.9.  Many thanks to Ithier de Lestrange 
+  for the code.
+* Updated the code to correctly redirect (almost) any link to another 
+  Slashdot article within the story or a comment back through 
+  AvantSlash.
+* Updated Copyright references to dates.
+* Added an option to turn blockquoted content into italics for devices 
+  that cannot handle the indented text very well.
+* Fixed yet another Slashdot fiddle where they added a space in a 
+  label which caused the main page to break.
+* Added a debugging option which dumps the post-processed HTML. This
+  is only going to be useful if you're trying to fix any problems.
+
+v3.9 (3rd November 2006)
+* Updated code to support the HTML changes on the Slashdot main page.
+* Corrected the CHANGELOG to reflect the right version numbers.
+* Updated the README to take into account that Palm devices and offline
+  browsing isn't as popular as Windows Mobile, Blackberries and online
+  browsing as it was in 2002 when the original README was written.
+
+v3.8 (27 October 2006)
+* Updated code to support the HTML changes on the Slashdot main page 
+  as they decided to insert a space into a heading tag.
+* Fixed bug where comments page caused internal server error when
+  debug mode was turned on.
+* Fixed bug where sometimes the first part of an article is missing
+  because Slashdot's HTML incorrectly tags two blocks of text as the
+  intro (rather than just one).
+
+v3.7 (18 September 2006)
+* Updated code to support the HTML changes on the Slashdot comments 
+  page.
+
+v3.6 (21st July 2006)
+* Fixed a bug so that you can see "mini stories" again.
+* Added support for specifying an issue date in the URL to view news
+  days, weeks or years old. Many thanks to Ithier de Lestrange for the 
+  code.
+* Fixed a bug where if a comment contained the blockquote tag, then
+  it wasn't shown.
+* Cleaned up code relating to setting the correct directory and added
+  informative error message when it is wrongly configured.
+
+v3.5 (2nd May 2006)
+* Fixed a bug which meant that people who quoted parent posters with the
+  blockquote tag would never have their own comment shown.
+* Added functionality so that whenever someone references a previous
+  Slashdot article (eg. a dupe or when something has been previously
+  covered) it is handled by Avantslash.
+* Added graceful handling of problems relating to AvantSlash's inability
+  to parse the content returned by Slashdot's webserver.
+* Added support for showing mini-articles posted in other sections on
+  the same page.
+* Added an informative message when there are no comments at a certain
+  threshold.
+* Fixed various bugs caused by yet another change to Slashdot's HTML.
+
+v3.4 (9th December 2005)
+* Updated code so that additional parts to an article (used for reviews,
+  slashback and other such things) are now shown when you follow the read
+  more link.
+* Updated the code to work with the XHTML changes to the comments section.
+* Added functionality to automatically fix mismatched blockquote tags
+  which can cause later comments to become incorrectly indented. 
+
+v3.3 (19th October 2005)
+* Fixed a bug which meant that articles with no specific section were not
+  being displayed on the main page (thanks to Steve McNally for spotting it)
+
+v3.2 (3rd October 2005)
+* Updated all parsing code to cope with the change on the Slashdot site
+  to HTML and CSS.
+
+v3.1 (15th June 2005)
+* Fixed critial bug regarding the cache timeout which meant it was always
+  set to a value that would get the IP from which AvantSlash connected
+  from banned.
+
+v3.0 (1st June 2005)
+ - Updated code to remove additional newline before the (read more) link.
+ - Removed all configuration from the main script and placed it into
+   a seperate file. This means that future updates won't mean that you
+   need to re-apply your configuration settings.
+
+v2.32 (28th April 2005)
+ - Updated code to cope with a change to the format of URL used by
+   each referenced article on the main page.
+
+v2.31 (18th March 2005)
+ - Updated code to cope with more Slashdot HTML changes (another set of
+   case changes)
+ - Updated other sections of the code so that case changes won't cause
+   it to break again
+ - If a comment gets truncated for being too long, AvantSlash will now
+   indicate this.
+
+v2.30 (17th March 2005)
+ - Updated code to cope with Slashdot HTML change (they've converted their
+   table tags to lovercase, not sure what that achieves)
+
+v2.29 (18th January 2005)
+ - Updated the advert filter code.
+
+v2.28 (2nd November 2004)
+ - Fixed bug where AvantSlash would prefer showing WML to web browsers that
+   support both WML and HTML. This was a problem especially with Pocket
+   Internet Explorer on the Microsoft Smartphone and PocketPC Phone Edition.
+
+v2.27 (12th August 2004)
+ - Fixed bug which means that if you viewed the site on a WAP phone, you
+   weren't correctly redirected to the Google WML to HTML converter.
+ - Added debugging code to easily work out what to fix when the Slashdot
+   authors change the design again.
+ - Fixed bug where cleaned up external pages wouldn't be viewable at all.
+
+v2.26 (19th July 2004)
+ - Updated code to cope with Slashdot HTML change (they've oddly removed the
+   # in all references to colours)
+
+v2.25 (26th April 2004)
+ - Updated code to cope when one of the Slashdot authors forgets to put
+   a department name in.
+ - Added patch kindly provided by John Milton which fixes some warnings
+   when using perl -cw.
+ - Moved logo to the left for better viewing with Opera on series 60
+   devices.
+
+v2.24 (22nd March 2004)
+ - Updated code to cope with HTML change by the Slashdot authors which
+   prevented the list of stories being shown. (Thanks to Dan Fulbright for
+   supplying the fix).
+
+v2.23 (20th February 2004)
+ - Updated code to cope with HTML change by the Slashdot authors which
+   prevented the list of stories being shown.
+
+v2.22 (4th November 2003)
+ - Updated code to cope with HTML change by the Slashdot authors which
+   prevented the list of stories being shown.
+
+v2.21 (25th July 2003)
+ - Removed additional <P> which appeared after each story blurb due to
+   Slashdot template change.
+ - Added silly feature where any comments by me have a link to the credits
+   of AvantSlash (yes, it's sad, sue me).
+ - Fixed stupid bug which means that an empty line stopped all comments
+   below it being shown.
+
+v2.20 (20th April 2003)
+ - Fixed yet another HTML change by the Slashdot authors which prevented
+   the story on the comments page being displayed.
+ - Fixed silly bug which meant that all page titles weren't being shown.
+
+v2.19 (10th April 2003)
+ - Fixed another HTML tweek by the Slashdot authors which prevented
+   the main page being displayed (thanks to Joe Maiorana yet again for
+   supplying the fix)
+
+v2.18 (7th April 2003)
+ - Fixed yet another HTML tweek by the Slashdot authors which prevented
+   comments being displayed (thanks to Joe Maiorana for supplying the fix)
+
+v2.17 (6th March 2003)
+ - Fixed error message caused by incorrect @ (thanks to Kevin Martin for
+   spotting that one)
+ - Fixed it so that if you have internalize_links set to zero, you can't
+   use the external=1 paramater to clean HTML. This came about because some
+   prat at 63.169.220.2 (firebox.mbe-eng.com) used my script to clean up
+   the Newsweek Site Index on MSNBC (and other links not used by slashdot)
+   and ended up twatting the server good and hard.
+ - Set internalize_links default option to 0 (off) in light of the above.
+
+v2.16 (21st February 2003)
+* Fixed "Read more" page not showing anything due to changes in Slashdots
+  HTML (thanks to Joe Maiorana for supplying the fix)
+
+v2.15 (5th February 2003)
+* Added option to limit the maximum number of comments shown (thanks to
+  Charles McNulty for the code)
+* Added an option to turn off the function that "internalizes" external
+  links so you can ensure only Slashdot content is stored (thanks to.
+  Charles McNulty for the code)
+
+v2.14 (31 January 2003)
+* Fixed "Read more" links problem due to change in Slashdot HTML (thanks to
+  Joe Maiorana for supplying the fix)
+* You can now visit the URL on a WAP phone for a WAP version of Slashdot
+
+v2.13 (20th January 2003)
+* Fixed blank comments error due to change in Slashdot HTML (thanks to Joe
+  Maiorana for supplying the fix)
+
+v2.12 (14th January 2003)
+* Fixed Internal Server in comments error due to change of URL (thanks to
+  Joe Maiorana for originally spotting this)
+
+v2.11 (3rd December 2002)
+* Fixed lack of comments issue when Slashdot changed their formatting
+* Shortened "Credits, disclaimer and Copyright" link to just "More info..."
+  so it doesn't wrap on my Palm Vx
+* Cleaned up a bit of code and added other kludges elsewhere
+
+v2.10 (2nd August 2002)
+* Fixed missing content-type header in credits (thanks to Dan Fabulich for
+  spotting it)
+* Added the date when the page was collected at the bottom so you know
+  how recent it is.
+
+v2.9 (25th July 2002)
+* Updated code to work with slightly new HTML redesign
+* Removed large header at the bottom of each page for a credits page
+
+v2.8 (30th May 2002)
+* Updated code to work with slightly new HTML redesign
+* Fixed bug that meant that anonymous posters didn't show up (thanks to
+  Dan Fabulich for the fix)
+* Updated the ad filtering code
+
+v2.7 (11th March 2002)
+* Updated code to work with slightly new HTML redesign
+* Added alt tag to logo and tagline ("News for Nerds. Stuff that matters")
+* Added code so that visiting an external site causes all links and images
+  to be removed.
+* Modified default comment level to be 5 rather than 3 as too often you'd
+  reach your page limit
+
+v2.6 (21st February 2002)
+* Updated code to work with new URL sections (http://*.slashdot.org)
+* Added nice logo for no real reason.
+
+v2.5 (11th February 2002)
+* Updated code to work with changes to Slashdot's HTML
+
+v2.4 (14th December 2001)
+* Updated the contact details to reflect new URL
+* Removed my email address from the template to avoid being caught by
+  spam bots crawling the site
+
+v2.3 (29th October 2001)
+* Fixed bug that meant that some scores for comments weren't being shown 
+  (thanks to Glenn Phillips for the fix)
+* Updated the documentation regarding using AvantSlash's local caching
+  (thanks to Glenn Phillips for the suggestion)
+* Added user definable cache timeout option for advanced users
+
+v2.2 (26th October 2001)
+* Added local caching which will reduce the hit on Slashdot when the
+  script is being used by multiple people
+
+v2.1 (20th September 2001)
+* Added a "(read more)" link and the ability to turn it on and off so
+  that you don't have to scroll down and then back up to link to the
+  article.
+* Changed copyright symbol to &copy; for cleaner HTML.
+* Added an option to remove italics from the output so that Palm Pilot
+  versions of Avantgo don't render everything in bold (which in my opinion
+  looks horrible and is difficult to read).
+
+v2.0 (30 August 2001)
+* New major version number, entirely new code. Now properly parses the
+  main site, allows you to toggle items on and off and the horriffic
+  searches and replaces have been replaced with pattern matches.
+* Released under the GNU GPL. The last licence was fine, but thought
+  I might as well support the organisation that provided these nice
+  free tools.
+
+v1.4 (29 August 2001)
+* Quick hacks to get it working under Slash 2.2. Some stuff that 
+  shouldn't show, now does, but its better than nothing. Next version
+  will be 2.0 and need a total rewrite *sigh*
+
+v1.3 (16th July 2001)
+* Started a changelog
+* Added cache control to reduce server load
+* Removed slashdot graphic from the top of pages
+* Removed messages box from above the comments
+* Cleaned up documentation
+* Added user definable threshold
+* Made it so that going to just avantify.cgi will take people to the
+  Slashdot main page
+
+v1.2 (15th July 2001) by Kevin Kadow  
+* Removed dependency on wget and changed to LWP
+* Cleaned up portions of the code
+
+v1.1
+* Cleaned up so it could be distributed
+
+v1.0
+* Original version
+

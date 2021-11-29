@@ -1,0 +1,14 @@
+<p>This is the demo mode for Avantslash, with the purpose of letting
+you try AvantSlash before installing it on your own web server. It is
+not meant as a replacement for a private AvantSlash installation; it's
+functionality is intentionally reduced in order to prevent overloading
+this server and in order to prevent getting blacklisted by
+slashdot.org.
+
+<p>To get the AvantSlash scripts, go to <a
+href="http://www.fourteenminutes.com/code/avantslash/">http://www.fourteenminutes.com/code/avantslash/</a>.
+You will be able to see the actual front page, in stead of old news,
+see more stories and comments, and search for stories.
+
+
+

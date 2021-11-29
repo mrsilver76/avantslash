@@ -1,0 +1,17 @@
+/* !ABOUT: White-on-black. !MOD:1 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+html { background: #111;}
+body {background:#000; color: #fff;}
+span.logo { background: url('logo40b.png'); }
+a { color:#7fe; }
+a:visited, a:hover { color:#add; }
+blockquote { color: #999; border-left: 2px solid #999;}
+div.subtitle, div.footer { background: #444; color: #aaa; }
+div.error, span.error { background: #653; color: #bbb;  }
+h2,  h2 a, h3, h3 a, h2 a:visited, h3 a:visited, h2 a:hover, h3 a:hover {
+ color: #fff;
+}
+div.hiddenstory h2, div.hiddenstory h2 a { background: #355; }
+div.abbr { color: #aaa; border-top: 0px solid #355; }
+div.abbr span.title { color: #ddd; background: #355; }
+form input, form select { background: #666; border:1px solid #888; }

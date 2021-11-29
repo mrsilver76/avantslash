@@ -1,0 +1,9 @@
+/* !ABOUT: 'unimportant stories' are not shaded !MOD:3 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+   
+
+/* Hidden story */
+div.hiddenstory { color: #000; }
+div.hiddenstory h2, div.hiddenstory h2 a {
+ background: #044; color: #fff;
+}

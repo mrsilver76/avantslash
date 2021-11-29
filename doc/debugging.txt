@@ -1,0 +1,24 @@
+For developing AvantSlash, there are a few features to help
+debugging. You can set DEBUGGING to 1 or 2 in avantify.config. But
+there are also some CGI parameters that you can append to the URL.
+
+* ua - override browser User-Agent, in order to test parts of the code
+  that generate HTML output depending on the user agent.
+
+  Example: &ua=iPhone
+
+* debug - override DEBUGGING configuration setting
+
+  Example: &debug=2
+
+* force_reload - ignore cached data and reload from the slashdot
+  server.
+
+  Example: &force_reload=1
+
+* style - override skin setting from configuration or cookie.
+
+  Example: &style=desktop_slashdot,noitalic
+
+-----------
+

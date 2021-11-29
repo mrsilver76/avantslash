@@ -1,0 +1,21 @@
+## list of CSS files distributed with AvantSlash.
+## for adding personal CSS files, create a file css_local.txt
+bare.css
+bigbutton.css
+invert.css
+dark.css
+desktop_slashdot.css
+font-l.css
+font-s.css
+font-xs.css
+serif.css
+italquote.css
+mini_slashdot.css
+noindent.css
+noitalic.css
+noscroll.css
+noshade.css
+soylent.css
+soy-dark.css
+soy-inv.css
+## end of file

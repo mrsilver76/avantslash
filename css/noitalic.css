@@ -1,0 +1,5 @@
+/* !ABOUT: suppress italics !MOD:3*/
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+i, em { font-style: normal; }
+
+

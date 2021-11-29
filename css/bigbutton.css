@@ -1,0 +1,6 @@
+/* !ABOUT: Bigger buttons, currently: <select name='dummy'><option value='3'>3</option></select> !MOD:3 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+select {
+ font-size:1.2em;
+ padding: 0.2em 0.4em 0.2em 0.4em;
+}

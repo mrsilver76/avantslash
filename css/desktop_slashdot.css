@@ -1,0 +1,51 @@
+/* !ABOUT: Like slashdot.org, for desktop use. */
+/* By Han-Kwang Nienhuys (2011) */
+@import "mini_slashdot.icss";
+
+html {
+  background: #c7c7c7;
+}
+
+body {
+     font-size: 0.9375em;
+     margin: 1em auto 1em auto;
+     padding: 20px;
+     }
+
+div.logobar { margin:-20px -20px 10px -20px; }     
+span.logo {
+     background: url('logo40g.png'); height:40px; width:203px;
+}
+
+div.in1 { margin-left: 2em; }
+div.in2 { margin-left: 4em; }
+div.in3 { margin-left: 6em; }
+div.in4 { margin-left: 8em; }
+
+div.item {
+   margin: 1.5em -20px 0em -4px;
+   padding-right: 20px;
+}
+
+h1, h2, h3 {
+   margin: 0px -20px 0px -6px;
+   padding: 4px 20px 4px 6px;
+}
+
+div.subtitle {
+   margin: 0px -20px 0.5em -6px;
+   padding: 4px 20px 2px 6px;
+}
+div.footer {
+   margin: 1em -20px 0em -6px;
+   padding: 4px 20px 2px 6px;
+}
+
+div.subtitle, div.subtitle div { font-size: 0.928em; }
+
+blockquote {
+  padding-left: 1em;
+  border-left: 4px solid #ddd;
+  margin-left: 0em;
+}
+

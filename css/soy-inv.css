@@ -1,0 +1,9 @@
+/* !ABOUT: White-on-black. !MOD:1 */
+/* !MOD:<number> indicates an optional style, sorted at position <number>. */
+@import "invert.css"
+span.logo { background: url('logo40Sb.png'); }
+a { color:#fd4; }
+a:visited, a:hover { color:#ee9; }
+div.hiddenstory h2, div.hiddenstory h2 a { background: #533; } 
+div.abbr { border-top: 0px solid #533; }
+div.abbr span.title { background: #533; }

@@ -1,0 +1,54 @@
+@import 'base.icss';
+
+/* override base.icss for soylent */
+a { color:#600; text-decoration: none; }
+a:visited, a:hover {color: #644;  }
+div.logobar { background: #600; }
+
+/* end base.icss override  */
+
+
+
+div.logobar { height:40px; margin-left:-4px; }
+span.logo { display: block; background: url('logo40Sw.png'); height:40px; width:203px; }
+
+h2,  h2 a, h3, h3 a, h2 a:visited, h3 a:visited, h2 a:hover, h3 a:hover {
+ background: #600; color: #fff;
+  text-decoration: none;
+  border-top-left-radius: 0.3em;
+ -moz-border-radius-topleft: 0.3em;
+ -webkit-border-top-left-radius: 0.3em;
+}
+
+blockquote {
+  padding-left: 0.5em;
+  border-left: 2px solid #ddd;
+ margin: 0em;
+}
+p { margin: 0.7em 0em 0.7em 0em; }
+
+/* items in lists of stories on main page, or lists of comments */
+div.item { margin-bottom: 1em; }
+div.subtitle, div.footer {
+ background: #e1e1e1; color: #000;
+ margin-bottom: 0.5em;
+}
+div.subtitle div { font-size: 0.857em;}
+h1, h2, h3, div.subtitle, div.footer { margin-left:-4px; padding-left:4px; }
+div.footer { margin-top: 1em; margin-bottom:3em } /* bottom for Android zoom buttons */
+
+/* comment item indentation level - extra class on top of 'item' */
+.in1 { margin-left: 0.5em; }
+.in2 { margin-left: 1.0em; }
+.in3 { margin-left: 1.5em; }
+.in4 { margin-left: 2.0em; }
+
+/* hidden story */
+div.hiddenstory h2, div.hiddenstory h2 a { background: #b88; }
+
+/* abbreviated comment */
+div.abbr { color: #888; text-indent:-4px; border-top: 2px solid #b88;
+	 margin-left:-4px; padding-left:4px; }
+div.abbr span.title { background: #b88; color: #fff; padding: 0.3em 0.3em 0em 4px; }
+
+

@@ -1,0 +1,21 @@
+<p><b>AvantSlash version <VERSION>, Copyright &copy; 2000-<THISYEAR> Richard Lawrence and Han-Kwang Nienhuys.</b>
+
+<p>This program is free software; you can redistribute it and/or modify   
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or 
+(at your option) any later version.
+<p>
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+<p> All trademarks and copyrights on this page are owned by their
+respective owners. Comments are owned by the Poster. The Rest &copy;
+1997-<THISYEAR> SourceForge, Inc.
+
+<p> For more information, please visit the Avantslash website at <a
+href="http://avantslash.org/">avantslash.org</a>. You
+can also <a href="<SELF_URL>?ckupdate=1">check for updates now</a>.
+</p>
+
