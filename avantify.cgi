@@ -2,8 +2,8 @@
 
 ############################################################################
 # AvantSlash
-my $version = "4.16";
-# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2015
+my $version = "4.17";
+# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2025
 ############################################################################
 #
 # This program is free software; you can redistribute it and/or modify   
@@ -1152,7 +1152,8 @@ sub parse_comments_slashdot
 	$prefs{"debugging"} && debug_msg("uldepth", $uldepth);
     }
     
-    if (m!<div class=\"title\"> <h4><a id=\".+?>(.+?)</a> <span id=\"comment_score_\d+?\" class=\"score\"> ?\(<.+?>Score:(.+?)\)</span></h4> </div>!) 
+#    if (m!<div class=\"title\"> <h4><a id=\".+?>(.+?)</a> <span id=\"comment_score_\d+?\" class=\"score\"> ?\(<.+?>Score:(.+?)\)</span></h4> </div>!) 
+    if (m!<div class=\"title\"> <h4><a rel=\".+?>(.+?)</a> <span id=\"comment_score_\d+?\" class=\"score\"> ?\(<.+?>Score:(.+?)\)</span></h4> </div>!) 
     {
       $title = remove_tags($1);
       $score = remove_tags($2);
@@ -1326,7 +1327,7 @@ sub correct_formatting
   $$Rpage =~ s!<div class="quote">(.+?)</div>!<blockquote>$1</blockquote>!gis;
 
   ## Change comments where quotes have been prefixed with > to <blockquote>
-  # $$Rpage =~ s!<p>&gt;(.+?)</p>!<blockquote>$1</blockquote>!gis if ($prefs{"no_old_style_quoting"});
+  $$Rpage =~ s!<p>&gt;(.+?)</p>!<blockquote>$1</blockquote>!gis if ($prefs{"no_old_style_quoting"});
 
   # Insert newlines at the beginning of <div class=...> to make parsing as
   # simple as possible.
