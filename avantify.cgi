@@ -1327,7 +1327,7 @@ sub correct_formatting
   $$Rpage =~ s!<div class="quote">(.+?)</div>!<blockquote>$1</blockquote>!gis;
 
   ## Change comments where quotes have been prefixed with > to <blockquote>
-  $$Rpage =~ s!<p>&gt;(.+?)</p>!<blockquote>$1</blockquote>!gis;
+  $$Rpage =~ s!<p>&gt;(.+?)</p>!<blockquote>$1</blockquote>!gis if ($prefs{"no_old_style_quoting"});
 
   # Insert newlines at the beginning of <div class=...> to make parsing as
   # simple as possible.
