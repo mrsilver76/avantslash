@@ -4,7 +4,7 @@ _A lightweight proxy that converts content from [slashdot.org](http://slashdot.o
 
 ## Why?
 
-Despite making improvements over the last 10 years, there are a number of issues with the Slashdot mobile site:
+Despite making improvements over the last 15 years, there are a number of issues with the Slashdot mobile site:
 
  * It uses a gray-on-gray color scheme with poor readability under daylight conditions.
  * A lot of screen real-estate is wasted on empty space.
