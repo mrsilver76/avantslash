@@ -1,3 +1,14 @@
+v4.18 (2025-06-03)
+* Added a workaround to fix Slashdot's broken UTF8 handling. These characters should now be displayed properly within Avantslash
+* Fixed bug which meant that fixed width fonts weren't being rendered correctly.
+
+v4.17 (2025-02-01)
+* Resolves an issue where comments in articles weren't being displayed.
+
+v4.16 (2021-11-29)
+* Slashdot bugfix.
+* This release was migrated from www.avantslash.org.
+
 v4.15 (2017-07-17)
 * slashdot.org via https; remove legacy beta-avoidance.
   (The author's IP address was banned temporarily, despite very
