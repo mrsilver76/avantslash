@@ -1,10 +1,10 @@
 # Avantslash
 
-Avantslash is a web based screen-scraper that takes content from [slashdot.org](http://slashdot.org) (and [soylentnews.org](http://soylentnews.org)) and reformats it so that it can be easily viewed on mobile devices. 
+_A lightweight proxy that converts content from [slashdot.org](http://slashdot.org) (and [soylentnews.org](http://soylentnews.org)) into a faster, optimised experience for viewing on mobile devices._
 
 ## Why?
 
-Despite making improvements over the last 10 years, there are a number of issues with the Slashdot mobile site:
+Despite making improvements over the last 15 years, there are a number of issues with the Slashdot mobile site:
 
  * It uses a gray-on-gray color scheme with poor readability under daylight conditions.
  * A lot of screen real-estate is wasted on empty space.
@@ -20,15 +20,16 @@ Avantslash 4.16 rendered using the Safari browser on an iPhone 13 Pro (running i
 
 ## Key features
 
-* Read Slashdot and SoylentNews front pages, articles, threads, and polls.
-* Over 30 times faster to load than the Slashdot mobile website.
-* Search Slashdot and SoylentNews stories.
-* Lightweight HTML output, with dynamic comment loading.
-* Support for skinning (desktop or mobile view, font size, dark mode, button sizes, etc).
-* Configurable settings within the browser, set on a per browser basis (ideal for having different configurations for different devices).
-* Replying to comments via the regular Slashdot (and Soylent News) website in case you don't want to open the laptop.
-* External links to [Youtube](https://www.youtube.com), [Wikipedia](https://en.wikipedia.com), and obligatory [xkcd](https://xkcd.com/) are automatically redirected to mobile versions.
-* and more...
+* 📄 Read Slashdot and SoylentNews front pages, articles, threads, and polls.
+* ⚡ Over 30 times faster to load than the Slashdot mobile website.
+* 🧹 Fixes Slashdot's broken UTF-8 rendering, displaying characters such as `£`, `–`, `“`, `”` and `€` correctly.
+* 🔍 Search Slashdot and SoylentNews stories.
+* 🪶 Lightweight HTML output, with dynamic comment loading.
+* 🎨 Support for skinning (desktop or mobile view, font size, dark mode, button sizes, etc).
+* 🛠️ Configurable settings within the browser, set on a per browser basis (ideal for having different configurations for different devices).
+* 💬 Replying to comments via the regular Slashdot (and Soylent News) website in case you don't want to open the laptop.
+* 🔗 External links to [Youtube](https://www.youtube.com), [Wikipedia](https://en.wikipedia.com), and obligatory [xkcd](https://xkcd.com/) are automatically redirected to mobile versions.
+* ✨ and more...
 
 ## System requirements
 

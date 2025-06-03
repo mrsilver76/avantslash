@@ -2,8 +2,8 @@
 
 ############################################################################
 # AvantSlash
-my $version = "4.17";
-# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2025
+my $version = "4.18";
+# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2015
 ############################################################################
 #
 # This program is free software; you can redistribute it and/or modify   
@@ -44,7 +44,9 @@ use LWP;
 use CGI qw(:param);
 use URI::Escape;
 use Cwd;
-
+use Encode;
+use HTML::Entities;
+use MIME::Base64;
 
 # Change directory
 
@@ -1323,7 +1325,6 @@ sub correct_formatting
   $$Rpage =~ s!\s+! !g;
 
   # Change some CSS to <blockquote> for ease of replacing later on.
-
   $$Rpage =~ s!<div class="quote">(.+?)</div>!<blockquote>$1</blockquote>!gis;
 
   ## Change comments where quotes have been prefixed with > to <blockquote>
@@ -1331,11 +1332,110 @@ sub correct_formatting
 
   # Insert newlines at the beginning of <div class=...> to make parsing as
   # simple as possible.
-
   $$Rpage =~ s!(<div class.*?>)!\n$1!gis;
 
+  $$Rpage = replace_broken_utf8($$Rpage);
 
-}  
+}
+
+# replace_broken_utf8
+# A slightly messy function that aims to correct badly encoded UTF-8
+# delivered by Slashcode. There may be better ways to do this but I've
+# tried a couple and none of them work due to the fact that the content
+# arrives HTML encoded.
+
+sub replace_broken_utf8 {
+    my $text = shift;
+    # Define the replacements for common broken HTML entities
+
+    # Lower accented characters
+
+    $text =~ s/&#195;&#160;/à/g;  # à
+    $text =~ s/&#195;&#161;/á/g;  # á
+    $text =~ s/&#195;&#162;/â/g;  # â
+    $text =~ s/&#195;&#163;/ã/g;  # ã
+    $text =~ s/&#195;&#164;/ä/g;  # ä
+    $text =~ s/&#195;&#165;/å/g;  # å
+    $text =~ s/&#195;&#167;/ç/g;  # ç
+    $text =~ s/&#195;&#168;/è/g;  # è
+    $text =~ s/&#195;&#169;/é/g;  # é
+    $text =~ s/&#195;&#170;/ê/g;  # ê
+    $text =~ s/&#195;&#171;/ë/g;  # ë
+    $text =~ s/&#195;&#172;/ì/g;  # ì
+    $text =~ s/&#195;&#173;/í/g;  # í
+    $text =~ s/&#195;&#174;/î/g;  # î
+    $text =~ s/&#195;&#175;/ï/g;  # ï
+    $text =~ s/&#195;&#177;/ñ/g;  # ñ
+    $text =~ s/&#195;&#178;/ò/g;  # ò
+    $text =~ s/&#195;&#179;/ó/g;  # ó
+    $text =~ s/&#195;&#180;/ô/g;  # ô
+    $text =~ s/&#195;&#181;/õ/g;  # õ
+    $text =~ s/&#195;&#182;/ö/g;  # ö
+    $text =~ s/&#195;&#185;/ù/g;  # ù
+    $text =~ s/&#195;&#186;/ú/g;  # ú
+    $text =~ s/&#195;&#187;/û/g;  # û
+    $text =~ s/&#195;&#188;/ü/g;  # ü
+    $text =~ s/&#195;&#191;/ÿ/g;  # ÿ
+
+    # Uppercase accented characters
+
+    $text =~ s/&#195;&#128;/À/g;  # À
+    $text =~ s/&#195;&#129;/Á/g;  # Á
+    $text =~ s/&#195;&#130;/Â/g;  # Â
+    $text =~ s/&#195;&#131;/Ã/g;  # Ã
+    $text =~ s/&#195;&#132;/Ä/g;  # Ä
+    $text =~ s/&#195;&#133;/Å/g;  # Å
+    $text =~ s/&#195;&#135;/Ç/g;  # Ç
+    $text =~ s/&#195;&#136;/È/g;  # È
+    $text =~ s/&#195;&#137;/É/g;  # É
+    $text =~ s/&#195;&#138;/Ê/g;  # Ê
+    $text =~ s/&#195;&#139;/Ë/g;  # Ë
+    $text =~ s/&#195;&#140;/Ì/g;  # Ì
+    $text =~ s/&#195;&#141;/Í/g;  # Í
+    $text =~ s/&#195;&#142;/Î/g;  # Î
+    $text =~ s/&#195;&#143;/Ï/g;  # Ï
+    $text =~ s/&#195;&#145;/Ñ/g;  # Ñ
+    $text =~ s/&#195;&#146;/Ò/g;  # Ò
+    $text =~ s/&#195;&#147;/Ó/g;  # Ó
+    $text =~ s/&#195;&#148;/Ô/g;  # Ô
+    $text =~ s/&#195;&#149;/Õ/g;  # Õ
+    $text =~ s/&#195;&#150;/Ö/g;  # Ö
+    $text =~ s/&#195;&#153;/Ù/g;  # Ù
+    $text =~ s/&#195;&#154;/Ú/g;  # Ú
+    $text =~ s/&#195;&#155;/Û/g;  # Û
+    $text =~ s/&#195;&#156;/Ü/g;  # Ü
+    $text =~ s/&#195;&#159;/Ÿ/g;  # Ÿ (technically 0xC3 0x9F is ß, but included for completeness)
+
+    # Single byte replacements
+
+    $text =~ s/&#226;\(TM\)/’/g;        # Fix broken &#226;(TM) to ’ (right single quotation mark)
+    $text =~ s/&#160;/ /g;              # Non-breaking space to normal space
+    $text =~ s/&#163;/£/g;              # Pound sign (&#163;) to £
+    $text =~ s/&#8364;/€/g;             # Euro symbol (&#8364;) to €
+    $text =~ s/&#169;/©/g;              # Copyright symbol (&#169;) to ©
+    $text =~ s/&#174;/®/g;              # Registered symbol (&#174;) to ®
+    $text =~ s/&#8211;/–/g;             # En dash (&#8211;) to –
+    $text =~ s/&#8212;/—/g;             # Em dash (&#8212;) to —
+    $text =~ s/&amp;mdash;/—/g;         # Em dash (&mdash;) to —
+    $text =~ s/&#8220;/“/g;             # Left double quotation mark (&#8220;) to “
+    $text =~ s/&#8221;/”/g;             # Right double quotation mark (&#8221;) to ”
+    $text =~ s/&#8216;/‘/g;             # Left single quotation mark (&#8216;) to ‘
+    $text =~ s/&#8217;/’/g;             # Right single quotation mark (&#8217;) to ’
+    $text =~ s/&#8482;/™/g;             # Trademark symbol (&#8482;) to ™
+    $text =~ s/&#183;/·/g;              # Middle dot (&#183;) to ·
+    $text =~ s/&#8594;/→/g;             # Right arrow (&#8594;) to →
+    $text =~ s/&#8592;/←/g;             # Left arrow (&#8592;) to ←
+    $text =~ s/&#8593;/↑/g;             # Upwards arrow (&#8593;) to ↑
+    $text =~ s/&#8595;/↓/g;             # Downwards arrow (&#8595;) to ↓
+    $text =~ s/&#177;/±/g;              # Plus-minus sign (&#177;) to ±
+    $text =~ s/&#8734;/∞/g;             # Infinity symbol (&#8734;) to ∞
+    $text =~ s/&#176;/°/g;              # Degree symbol (&#176;) to °
+    $text =~ s/&#162;/¢/g;              # Cent symbol (&#162;) to ¢
+    $text =~ s/&#177;/±/g;              # Plus-minus sign (&#177;) to ±
+
+    return $text;
+}
+
 
 # arg 1: show issues, boolean
 # arg 2 (opt): extra html code 
@@ -1882,7 +1982,7 @@ sub tagfilter {
     $tag =~ s/^<(.*)>$/$1/;
     my $is_closing = ($tag =~ s!^/!!) ? "/" : "";
     my $tag1 = ($tag =~ m!^(\S+)!) ? $1 : "??"; # the 'a', 'br' etc. part
-    if ($tag1 !~ /^(a|p|b|i|em|br|blockquote|ul|ol|li|h4)$/) { return ""; }
+    if ($tag1 !~ /^(a|p|b|i|em|br|blockquote|ul|ol|li|h4|tt)$/) { return ""; }
     if ($tag1 eq "a" && $tag =~ m!(href=\"[^\"]+\")!) {
 	# keep the href
 	$tag1 .= " $1";
