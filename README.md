@@ -1,5 +1,7 @@
 # Avantslash
 
+<p><img src="https://img.shields.io/badge/Linux-supported-FCC624?logo=linux&logoColor=black" alt="Linux"> <img src="https://img.shields.io/badge/Perl-language-39457E?logo=perl&logoColor=white" alt="Perl"> <img src="https://img.shields.io/github/license/mrsilver76/avantslash?logo=gnu&logoColor=white" alt="GPL License"></p>
+
 _A lightweight proxy that converts content from [slashdot.org](http://slashdot.org) (and [soylentnews.org](http://soylentnews.org)) into a faster, optimised experience for viewing on mobile devices._
 
 ## Why?
