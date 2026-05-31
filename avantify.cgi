@@ -2,8 +2,8 @@
 
 ############################################################################
 # AvantSlash
-my $version = "4.18";
-# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2015
+my $version = "4.19";
+# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2026
 ############################################################################
 #
 # This program is free software; you can redistribute it and/or modify   
@@ -2138,6 +2138,10 @@ sub parse_ajax_comment {
 	debug_msg("Data", $rawhtml);
 	print("<br>");
     }
+    if ($cid && $rawhtml =~ m!(<div id="comment_$cid"[^>]*>.*?<div id="replyto_$cid">)!s) {
+	$rawhtml = $1;
+    }
+
     # find the relevant data
     my ($title, $author, $score, $date, $body) = ("title?", "author?", "score?", "date?", "body?");
     if ($rawhtml =~ m!class=\"score\">.*?>Score:(.*?)\)<!) {
@@ -2149,12 +2153,12 @@ sub parse_ajax_comment {
 	$title =~ s!^Re:!Re: !;
 	debug_msg("title", $title) if ($prefs{"debugging"});
     }
-    if ($rawhtml =~ m!\"byby\">(by .*? on .*?[AP]M)!s) {
+    if ($rawhtml =~ m!\"byby\">(by .*? on .*?[AP]M)!s || $rawhtml =~ m!<div class="details">\s*(.*? on .*?[AP]M)!s) {
 	$author = remove_tags($1);
 	$author =~ s!writes:!!;
 	debug_msg("author", $author) if ($prefs{"debugging"});
     }
-    if ($rawhtml =~ m!commentBody\">(.*)<div class=\"commentSub!s) {
+    if ($rawhtml =~ m!commentBody\">(.*?)<div class=\"commentSub!s) {
 	$body = $1;
 	$body =~ s!<div class=\"quote\">(.+?)</div>!<blockquote>$1</blockquote>!gis;
 	$body = remove_tags_except_basic($body);
@@ -2168,19 +2172,18 @@ sub parse_ajax_comment {
 # check updates, output page
 sub parse_ckupdate {
     my $mode = shift; #1=page, 2=javascript
-    my ($release_vrsn, $release_date, $release_summary) = ("", "", "");
+    my ($release_vrsn, $release_summary) = ("", "");
     my $ok = 0;
     my $message = "";
     if ($page =~ m!^500 TIMEOUT!) {
 	$message = "Timeout while retrieving the latest version number".
 	    ($mode == 1 ? " from $fetch_info{url}." : ".");
     } else {
-	if ($page =~ m!^version=(.*?)$!m) { $release_vrsn = $1; }
-	if ($page =~ m!^date=(.*?)\s*$!m) { $release_date = $1; }
-	if ($page =~ m!^summary=(.*?)\s*$!m) { $release_summary = $1; }
+	if ($page =~ m!"tag_name"\s*:\s*"(.*?)"!) { $release_vrsn = $1; }
+	if ($page =~ m!"body"\s*:\s*"(.*?)"!s) { $release_summary = $1; }
 	$ok = ($release_vrsn ne "");
 	if ($ok) {
-	    $message = "The latest version is $release_vrsn ($release_date). ";
+	    $message = "The latest version is $release_vrsn. ";
 	} else {
 	    $message = "Could not parse $fetch_info{url}.";
 	}
@@ -2443,10 +2446,7 @@ sub get_html_soylent {
 	    $slashdot_url = "https://soylentnews.org/";
 	}
 	elsif ($type eq "ckupdate") {
-	    my $css = get_stylesheet();
-	    my $UA = uri_escape(get_UA());
-	    $slashdot_url = "http://avantslash.org/".
-		"checkupdate.cgi?version=$version&css=$css&ua=$UA";
+	    $slashdot_url = "https://api.github.com/repos/mrsilver76/avantslash/releases/latest";
 	    #$slashdot_url = "//$ENV{HTTP_HOST}$self_url"; 
 	    #$slashdot_url =~ s!/[^/]*$!/slow_versioninfo.cgi!; # debugging
 	    $timeout = $timeouts{'avantslash'};
@@ -2542,10 +2542,7 @@ sub get_html_slashdot {
 	    $slashdot_url = "https://slashdot.org/";
 	}
 	elsif ($type eq "ckupdate") {
-	    my $css = get_stylesheet();
-	    my $UA = uri_escape(get_UA());
-	    $slashdot_url = "http://avantslash.org/".
-		"checkupdate.cgi?version=$version&css=$css&ua=$UA";
+	    $slashdot_url = "https://api.github.com/repos/mrsilver76/avantslash/releases/latest";
 	    #$slashdot_url = "//$ENV{HTTP_HOST}$self_url"; 
 	    #$slashdot_url =~ s!/[^/]*$!/slow_versioninfo.cgi!; # debugging
 	    $timeout = $timeouts{'avantslash'};
@@ -2570,7 +2567,7 @@ sub get_html_slashdot {
 	$prefs{enable_local_cache} && store_file_in_cache($Rhtml, $cache_fn);
     }
 
-    if ($$Rhtml =~ m!AVANTSLASH_URL=(http://\S+)$!) { # url is appended to result data
+    if ($$Rhtml =~ m!AVANTSLASH_URL=(https?://\S+)$!) { # url is appended to result data
 	$fetch_info{url} = $1;
     }
     if ($$Rhtml =~ m!^([1-6][0-9][0-9] .{,200}?)\n! || $$Rhtml =~ m!<title>([345]\d\d .*?)</title>!) {
@@ -2622,17 +2619,16 @@ sub fetch_http_ajax
     if ($urldata =~ m!([0-9]+),\s*([0-9]+)!) {
 	my $cid = $1;
 	my $sid = $2;
-	# this gives only the date and comment text
-	# "op=comments_fetch&cids=$cid&discussion_id=$sid&abbreviated=$cid,0&pieces=$cid";
-	# this gives author/title/score as well, with much more html overhead.
-	my $postdata = "op=comments_fetch&cids=$cid&discussion_id=$sid";
+	my $threshold = $prefs{'threshold'} - 1;
+	if ($threshold < -1) {
+	    $threshold = -1;
+	}
 	my $ua = new LWP::UserAgent;
 	$ua->agent($as_user_agent);
 	my $req;
-	my $req_url = "https://slashdot.org/ajax.pl";
-	$req = new HTTP::Request(POST => $req_url);
-	$req->content_type('application/x-www-form-urlencoded');
-	$req->content($postdata);
+	my $req_url = "https://slashdot.org/comments.pl?sid=$sid&cid=$cid&threshold=$threshold";
+	$req = new HTTP::Request(GET => $req_url);
+	$req->header("Referer" => "https://slashdot.org/");
 	my $res = $ua->request($req);
 	if ($res) {
 	    $$Rhtml = $res->content."\nAVANTSLASH_URL=$req_url\n";
@@ -2796,7 +2792,7 @@ sub generate_css_recursive
 sub print_ckupdate_js
 {
     if ($prefs{check_updates}) {
-	print("<script type=\"text/javascript\" src=\"$self_url?ckupdate=2\"></script>\n");
+	print("<script type=\"text/javascript\" src=\"$self_url?ckupdate=2&amp;version=$version\"></script>\n");
     }
 }
 
