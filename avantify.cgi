@@ -2,8 +2,8 @@
 
 ############################################################################
 # AvantSlash
-my $version = "4.19";
-# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2026
+my $version = "4.18";
+# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2015
 ############################################################################
 #
 # This program is free software; you can redistribute it and/or modify   
@@ -2012,7 +2012,7 @@ sub debug_msg {
     }
 }
 
-# return html code for abbreviated message  (slashdot, via ajax)
+# return html code for abbreviated message (slashdot, via hidden)
 sub format_msg_abbrev
 {
     my ($title, $score, $author, $message, $msg_length, $cid, $sid) = @_;
@@ -2024,9 +2024,11 @@ sub format_msg_abbrev
     if (length($title) > $max_ti_len) {
 	$title = substr($title, 0, $max_ti_len - 3)."...";
     }
-    my $html = "<div class=\"item abbr\"><span class=\"title\">$title</span>  $message <EXPAND></div>";
-    ajaxify_message(\$html, $cid, $sid);
-    return  $html;
+    my $expand_code = "<a href='#' onclick='document.getElementById(\"ac$cid\").style.display=\"none\";document.getElementById(\"ec$cid\").style.display=\"block\";return false'>[expand]</a>";
+    my $short_html = "<div class=\"item abbr\"><span class=\"title\">$title</span> $message $expand_code</div>";
+    my $full_html = format_msg($title, $score, $author, $orig_message, $msg_length, 0, $cid, $sid, 0);
+    return "<div class='abb-comment' id='ac$cid'>\n$short_html\n</div>\n".
+	"<div class='exp-comment' id='ec$cid'>\n$full_html</div>\n";
 }
 
 # return html code for abbreviated message (Soylent, via hidden)
@@ -2474,7 +2476,7 @@ sub get_html_soylent {
     if ($$Rhtml =~ m!AVANTSLASH_URL=(http://\S+)$!) { # url is appended to result data
 	$fetch_info{url} = $1;
     }
-    if ($$Rhtml =~ m!^([1-6][0-9][0-9] .{,200}?)\n! || $$Rhtml =~ m!<title>([345]\d\d .*?)</title>!) {
+    if ($$Rhtml =~ m!^([1-6][0-9][0-9] .{0,200}?)\n! || $$Rhtml =~ m!<title>([345]\d\d .*?)</title>!) {
 	$fetch_info{'statuscode'} = $1;
     }
 
@@ -2570,7 +2572,7 @@ sub get_html_slashdot {
     if ($$Rhtml =~ m!AVANTSLASH_URL=(https?://\S+)$!) { # url is appended to result data
 	$fetch_info{url} = $1;
     }
-    if ($$Rhtml =~ m!^([1-6][0-9][0-9] .{,200}?)\n! || $$Rhtml =~ m!<title>([345]\d\d .*?)</title>!) {
+    if ($$Rhtml =~ m!^([1-6][0-9][0-9] .{0,200}?)\n! || $$Rhtml =~ m!<title>([345]\d\d .*?)</title>!) {
 	$fetch_info{'statuscode'} = $1;
     }
 
