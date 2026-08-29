@@ -2,8 +2,8 @@
 
 ############################################################################
 # AvantSlash
-my $version = "4.19";
-# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2015
+my $version = "4.20";
+# Copyright (c) Richard Lawrence and Han-Kwang Nienhuys 2000-2026
 ############################################################################
 #
 # This program is free software; you can redistribute it and/or modify   
@@ -840,6 +840,7 @@ sub parse_comments_soylent
   my $j;
   my $uldepth = -1; # keep track of comment indentation
   my $current_title = "<blah>";
+  my $first_js = 1;
   $j=0;
   for (; $i < $elements; $i++)
   {
@@ -876,6 +877,15 @@ sub parse_comments_soylent
 	    $sid = $1;
 	    $cid = $2;
 	    debug_msg("cid,sid", "$cid,$sid") if ($prefs{"debugging"});
+	    if (!$prefs{'no_compressed_comments'} && $first_js) {
+		my $js = file_contents('expandmsg.js');
+		$js =~ s!<--.*?-->!!g;
+		$js =~ s!<SID>!$sid!;
+		$js =~ s!<SELF_URL>!$self_url!g;
+		$js =~ s!<THRESHOLD>!$prefs{'threshold'}!g;
+		print("<script type=\"text/javascript\">".$js."</script>\n");
+		$first_js = 0;
+	    }
 	    if ($cid == $thr_cid) {
 		$thr_title = "$title $thr_title";
 	    }
@@ -2102,11 +2112,21 @@ sub embed_div_inX {
 # arguments: reference to message string, cid, sid
 sub ajaxify_message {
     my ($Rmsg, $cid, $sid) = @_;
-    my $expand_html ="[<a href=\"#\" id=\"x$cid\" onclick=\"return load_comment($cid)\">expand</a>]";
+    my $expand_html;
+    if ($prefs{'soylent'}) {
+        # SoylentNews' comments.pl isn't behind Cloudflare, so the AJAX-loaded
+        # [expand] link (see expandmsg.js) still works there.
+        $expand_html = " <a href='#' id=\"x$cid\" onclick='return load_comment($cid)'>[expand]</a>";
+    } else {
+        # Slashdot moved comments.pl behind Cloudflare, which blocks this kind
+        # of server-side fetch, so link straight to Slashdot instead.
+        my $url = "https://slashdot.org/comments.pl?sid=$sid&amp;cid=$cid";
+        $expand_html = "...<b>[truncated, read <a href=\"$url\" target=\"_blank\">here</a>]</b>";
+    }
     if ($$Rmsg =~ s!<EXPAND>!$expand_html!) {
-	# done...
+    	# done...
     } elsif ($$Rmsg !~ s!(</p>\s*)$!$expand_html$1!) {
-	$$Rmsg .= $expand_html; # append to message
+    	$$Rmsg .= $expand_html; # append to message
     }
     $$Rmsg = "<div id=\"cmt$cid\">$$Rmsg\n</div>";
 }
@@ -2628,9 +2648,10 @@ sub fetch_http_ajax
 	my $ua = new LWP::UserAgent;
 	$ua->agent($as_user_agent);
 	my $req;
-	my $req_url = "https://slashdot.org/comments.pl?sid=$sid&cid=$cid&threshold=$threshold";
+	my $site = $prefs{'soylent'} ? "https://soylentnews.org" : "https://slashdot.org";
+	my $req_url = "$site/comments.pl?sid=$sid&cid=$cid&threshold=$threshold";
 	$req = new HTTP::Request(GET => $req_url);
-	$req->header("Referer" => "https://slashdot.org/");
+	$req->header("Referer" => "$site/");
 	my $res = $ua->request($req);
 	if ($res) {
 	    $$Rhtml = $res->content."\nAVANTSLASH_URL=$req_url\n";
