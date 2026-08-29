@@ -1,3 +1,10 @@
+v4.20 (2026-08-29)
+* Replaced "[expand]" with "[truncated, read here]" as Slashdot now puts comments.pl behind a Cloudflare challenge, meaning that it cannot be parsed.
+
+v4.19 (2026-06-13)
+* Resolved an issue with [expand] no longer working and presenting "title? body?" error messages. This was caused by Slashdot retiring /ajax.pl which triggered Cloudflare.
+* Updated version checking to now use the GitHub releases page.
+
 v4.18 (2025-06-03)
 * Added a workaround to fix Slashdot's broken UTF8 handling. These characters should now be displayed properly within Avantslash
 * Fixed bug which meant that fixed width fonts weren't being rendered correctly.
