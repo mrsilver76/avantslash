@@ -1,3 +1,7 @@
+v4.21 (2026-10-03)
+* Rewrote the workaround for Slashdot's broken UTF-8 handling, removing the lookup table for a more robust solution which shouldn't need ongoing maintenance.
+* Some dead comments removed and the code has been reformatted with perltidy.
+
 v4.20 (2026-08-29)
 * Replaced "[expand]" with "[truncated, read here]" as Slashdot now puts comments.pl behind a Cloudflare challenge, meaning that it cannot be parsed.
 
